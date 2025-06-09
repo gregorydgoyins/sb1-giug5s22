@@ -1,0 +1,147 @@
+/* Enhanced Button Styles */
+@layer components {
+  /* Base button styles */
+  .btn-base {
+    @apply relative inline-flex items-center justify-center
+           font-semibold transition-all duration-300 ease-out
+           transform hover:-translate-y-1 active:translate-y-0
+           focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-offset-slate-900
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
+           group overflow-hidden;
+  }
+
+  /* Primary button variant */
+  .btn-primary {
+    @apply btn-base
+           bg-gradient-to-r from-indigo-600 to-purple-600
+           hover:from-indigo-500 hover:to-purple-500
+           text-white shadow-lg hover:shadow-xl
+           focus:ring-indigo-500
+           before:absolute before:inset-0 before:bg-gradient-to-r 
+           before:from-white/20 before:to-transparent before:opacity-0
+           hover:before:opacity-100 before:transition-opacity before:duration-300;
+  }
+
+  /* Secondary button variant */
+  .btn-secondary {
+    @apply btn-base
+           bg-slate-800/90 backdrop-blur-md border-2 border-slate-600/50
+           hover:border-indigo-500/50 hover:bg-slate-700/90
+           text-white shadow-lg hover:shadow-xl
+           focus:ring-slate-500
+           before:absolute before:inset-0 before:bg-gradient-to-r 
+           before:from-indigo-500/10 before:to-purple-500/10 before:opacity-0
+           hover:before:opacity-100 before:transition-opacity before:duration-300;
+  }
+
+  /* Button sizes */
+  .btn-sm {
+    @apply px-4 py-2 text-sm rounded-lg;
+  }
+
+  .btn-md {
+    @apply px-6 py-3 text-base rounded-lg;
+  }
+
+  .btn-lg {
+    @apply px-8 py-4 text-lg rounded-xl;
+  }
+
+  /* Interactive button animations */
+  .btn-interactive {
+    @apply relative overflow-hidden;
+  }
+
+  .btn-interactive::after {
+    @apply absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-white/5 to-transparent
+           -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out;
+    content: '';
+  }
+
+  /* Icon animations within buttons */
+  .btn-icon {
+    @apply transition-transform duration-300 group-hover:scale-110;
+  }
+
+  .btn-arrow {
+    @apply transition-all duration-300 group-hover:translate-x-1 opacity-0 group-hover:opacity-100;
+  }
+
+  /* Button states */
+  .btn-loading {
+    @apply cursor-wait;
+  }
+
+  .btn-loading .btn-icon {
+    @apply animate-spin;
+  }
+
+  /* Responsive button containers */
+  .btn-group-horizontal {
+    @apply flex flex-col sm:flex-row items-center justify-center 
+           space-y-4 sm:space-y-0 sm:space-x-6;
+  }
+
+  .btn-group-vertical {
+    @apply flex flex-col items-center space-y-4;
+  }
+
+  /* Button accessibility enhancements */
+  .btn-accessible {
+    @apply focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900;
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .btn-primary {
+      @apply border-2 border-white;
+    }
+    
+    .btn-secondary {
+      @apply border-2 border-gray-300;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .btn-base {
+      @apply transition-none transform-none;
+    }
+    
+    .btn-interactive::after {
+      @apply transition-none;
+    }
+    
+    .btn-icon,
+    .btn-arrow {
+      @apply transition-none;
+    }
+  }
+}
+
+/* Custom button hover effects */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.btn-shimmer::before {
+  animation: shimmer 2s infinite;
+}
+
+/* Button focus indicators for keyboard navigation */
+.btn-base:focus-visible {
+  @apply ring-4 ring-offset-2 ring-offset-slate-900;
+}
+
+.btn-primary:focus-visible {
+  @apply ring-indigo-500;
+}
+
+.btn-secondary:focus-visible {
+  @apply ring-slate-500;
+}
